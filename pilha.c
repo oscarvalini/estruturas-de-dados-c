@@ -2,36 +2,36 @@
 #include <stdlib.h>
 #include "pilha.h"
 
-Stack* stack_init() {
+Stack* create_stack() {
     Stack *stack = (Stack*) malloc(sizeof(Stack));
-    stack->head = NULL;
+    stack->top = NULL;
     return stack;
 }
 
-StackItem* stack_item_init() {
-    return (StackItem*) malloc(sizeof(StackItem));
+Node* create_node() {
+    return (Node*) malloc(sizeof(Node));
 }
 
 void stack_push(Stack *stack, void *value) {
-    if(stack->head == NULL) {
-        StackItem *head = stack_item_init();
+    if(stack->top == NULL) {
+        Node *head = create_node();
         head->data = value;
         head->next = NULL;
-        stack->head = head;
+        stack->top = head;
         return;
     }
 
-    StackItem *new_head = stack_item_init();
+    Node *new_head = create_node();
     new_head->data = value;
-    new_head->next = stack->head;
-    stack->head = new_head;
+    new_head->next = stack->top;
+    stack->top = new_head;
 }
 
 void *stack_pop(Stack *stack) {
     void *data;
 
-    StackItem *old_head = stack->head;
-    stack->head = old_head->next;
+    Node *old_head = stack->top;
+    stack->top = old_head->next;
     data = old_head->data;
 
     free(old_head);
@@ -40,15 +40,15 @@ void *stack_pop(Stack *stack) {
 }
 
 void *stack_peek(const Stack *stack) {
-    return stack->head->data;
+    return stack->top->data;
 }
 
 void stack_foreach(Stack *stack, void (*cb) (void*)) {
-    StackItem *item = stack->head;
+    Node *item = stack->top;
     
     while(item != NULL) {
         cb(item->data);
-        StackItem *temp = item->next;
+        Node *temp = item->next;
         item = temp;
     }
 

@@ -1,18 +1,18 @@
 #ifndef PILHA_H
 #define PILHA_H
 
-typedef struct StackItem {
+typedef struct Node {
     void *data;
-    struct StackItem *next; 
-} StackItem;
+    struct Node *next; 
+} Node;
 
 typedef struct Stack {
-    struct StackItem *head;
+    struct Node *top;
 } Stack;
 
-Stack* stack_init();
+Stack* create_stack();
 
-StackItem* stack_item_init();
+Node* create_node();
 
 void stack_push(Stack *stack, void *data);
 

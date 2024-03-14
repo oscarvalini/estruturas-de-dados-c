@@ -23,8 +23,8 @@ int *new_int(int val) {
 }
 
 void main() {
-    Stack *stack1 = stack_init();
-    Stack *stack2 = stack_init();
+    Stack *stack1 = create_stack();
+    Stack *stack2 = create_stack();
 
     stack_push(stack1, new_int(10));
     stack_push(stack1, new_int(8));
