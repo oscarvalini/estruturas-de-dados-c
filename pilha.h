@@ -2,7 +2,7 @@
 #define PILHA_H
 
 typedef struct StackItem {
-    int value;
+    void *data;
     struct StackItem *next; 
 } StackItem;
 
@@ -14,12 +14,12 @@ Stack* stack_init();
 
 StackItem* stack_item_init();
 
-void stack_push(Stack *stack, int value);
+void stack_push(Stack *stack, void *data);
 
-int stack_pop(Stack *stack);
+void *stack_pop(Stack *stack);
 
-int stack_peek(const Stack *stack);
+void *stack_peek(const Stack *stack);
 
-void print_stack(const Stack *stack);
+void stack_foreach(Stack *stack, void (*cb) (void*));
 
 #endif

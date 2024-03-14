@@ -12,43 +12,42 @@ StackItem* stack_item_init() {
     return (StackItem*) malloc(sizeof(StackItem));
 }
 
-void stack_push(Stack *stack, int value) {
+void stack_push(Stack *stack, void *value) {
     if(stack->head == NULL) {
         StackItem *head = stack_item_init();
-        head->value = value;
+        head->data = value;
         head->next = NULL;
         stack->head = head;
         return;
     }
 
     StackItem *new_head = stack_item_init();
-    new_head->value = value;
+    new_head->data = value;
     new_head->next = stack->head;
     stack->head = new_head;
 }
 
-int stack_pop(Stack *stack) {
-    int value;
+void *stack_pop(Stack *stack) {
+    void *data;
 
     StackItem *old_head = stack->head;
     stack->head = old_head->next;
+    data = old_head->data;
 
-    value = old_head->value;
     free(old_head);
-    return value;
+
+    return data;
 }
 
-int stack_peek(const Stack *stack) {
-    return stack->head->value;
+void *stack_peek(const Stack *stack) {
+    return stack->head->data;
 }
 
-void print_stack(const Stack *stack) {
-    puts("=================STACK===============");
-     
+void stack_foreach(Stack *stack, void (*cb) (void*)) {
     StackItem *item = stack->head;
     
     while(item != NULL) {
-        printf("%d \n", item->value);
+        cb(item->data);
         StackItem *temp = item->next;
         item = temp;
     }

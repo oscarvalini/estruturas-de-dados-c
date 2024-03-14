@@ -15,16 +15,16 @@ COMPILER_CALL = $(C) $(CFLAGS) $(LDFLAGS)
 # @ - Execução silenciosa
 build: main.o pilha.o
 	@$(COMPILER_CALL) main.o pilha.o -o dist/main
-	@make clean
+	@$(MAKE) clear
 
 main.o:
-	gcc main.c -c
+	@gcc main.c -c
 
 pilha.o:
-	gcc pilha.c -c
+	@gcc pilha.c -c
 
 execute:
-	./dist/main
+	@./dist/main
 
-clean:
-	rm -f ./*.o
+clear:
+	@rm -f ./*.o
